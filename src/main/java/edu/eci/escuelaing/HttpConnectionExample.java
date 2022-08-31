@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.sound.sampled.Port;
 
@@ -17,13 +18,12 @@ import edu.eci.escuelaing.entities.Query;
 public class HttpConnectionExample{
 
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static String GET_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo";
-    private static final String API_KEY = "G0PV1W2FLYMLQ6JL";
 
     public static String getAPIAdvantageIntraDay(String symbol,String time) throws IOException {
         Query query = new Query(symbol,time);
         System.out.println("URL DESDE CLASE QUERY " + query);
         Cache cache = new Cache(query.getQuery());
+        List<String> memoria  = cache.getActualMemory();
         URL obj = new URL(query.getQuery());
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -49,10 +49,11 @@ public class HttpConnectionExample{
             System.out.println(response.toString());
             return response.toString();
         } else {
-            System.out.println("GET request not worked");
+             memoria.add("fin");
+             System.out.println("GET request not worked");
             return "nada";
         }
-        
+       
         //System.out.println("GET DONE");
         
     }
