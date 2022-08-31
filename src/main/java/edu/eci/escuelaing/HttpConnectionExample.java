@@ -11,15 +11,27 @@ import javax.sound.sampled.Port;
 
 import org.eclipse.jetty.http.MetaData.Response;
 
-public class HttpConnectionExample {
+import edu.eci.escuelaing.entities.Cache;
+import edu.eci.escuelaing.entities.Query;
+
+public class HttpConnectionExample{
 
     private static final String USER_AGENT = "Mozilla/5.0";
     private static String GET_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo";
     private static final String API_KEY = "G0PV1W2FLYMLQ6JL";
+    private static String date, time;
+    public void getDate(String date){
+        this.date = date;
+    }
 
-    public static String getAPIAdvantageIntraDay() throws IOException {
-        
-        URL obj = new URL(GET_URL);
+    public void getTime(String time) {
+        this.date = date;
+    }
+
+    public static String getAPIAdvantageIntraDay(String symbol,String time) throws IOException {
+        Query query = new Query(symbol,time);
+        Cache cache = new Cache(query.getQuery());
+        URL obj = new URL(query.getQuery());
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);

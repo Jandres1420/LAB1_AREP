@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Form Example</title>
+        <title>Consumiendo un API</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -22,7 +22,7 @@
                     document.getElementById("getrespmsg").innerHTML =
                     this.responseText;
                 }
-                xhttp.open("GET", "/hello?name="+nameVar);
+                xhttp.open("GET", "/getSymbol?name="+nameVar);
                 xhttp.send();
                 
             }
