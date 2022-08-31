@@ -4,6 +4,8 @@ import static spark.Spark.*;
 
 import java.net.URL;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 public class Lab1Stocks {
     
 
@@ -25,25 +27,24 @@ public class Lab1Stocks {
     }
 
     public static void getEndPoints(){
-        String symbol = "",time = "" ;
+
         get("/getSymbol", (req, res) -> {
-            String name = req.queryParams("name");
-            symbol = req.queryParams("name");
-            URL url = new URL(name);
-            return "Hello " + name;
+            String symbol = req.queryParams("symbol");
+            return "Hello " + symbol;
         });
 
         get("/getTime", (req, res) -> {
-            String name = req.queryParams("name");
-            time = req.queryParams("name");
-            URL url = new URL(name);
-            return "Hello " + name;
+            String time = req.queryParams("time");
+            return "Hello " + time;
         });
 
         get("/getQuery", (req, res) -> {
-            String data = req.queryParams("name");
-            System.out.println("Entrada desde el front " + data);
+            String time = req.queryParams("time");
+            String symbol = req.queryParams("symbol");
+            System.out.println("Entrada desde el front " + time);
+            System.out.println("Symbol + " + symbol);
             res.type("/application.json");
+            System.out.println("URL " + HttpConnectionExample.getAPIAdvantageIntraDay(symbol, time));
             return HttpConnectionExample.getAPIAdvantageIntraDay(symbol,time);
         });
 

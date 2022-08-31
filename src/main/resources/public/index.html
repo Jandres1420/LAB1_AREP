@@ -6,44 +6,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Form with GET</h1>
+        <h1>Poner compañia </h1>
         <form action="/hello">
             <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" value="John"><br><br>
+            <input type="text" id="symbol" name="name" value="IBM"><br><br>
             <input type="button" value="Submit" onclick="loadGetMsg()">
         </form> 
         <div id="getrespmsg"></div>
 
         <script>
             function loadGetMsg() {
-                let nameVar = document.getElementById("name").value;
+                let nameVar = document.getElementById("symbol").value;
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function() {
                     document.getElementById("getrespmsg").innerHTML =
                     this.responseText;
                 }
-                xhttp.open("GET", "/getSymbol?name="+nameVar);
+                xhttp.open("GET", "/getSymbol?symbol="+nameVar);
                 xhttp.send();
                 
             }
         </script>
 
-        <h1>Form with POST</h1>
+        <h1>Poner tiempo</h1>
+        <h2> pruebe con 5min o 10min o 15min</h2>
         <form action="/hellopost">
             <label for="postname">Name:</label><br>
-            <input type="text" id="postname" name="name" value="John"><br><br>
-            <input type="button" value="Submit" onclick="loadPostMsg(postname)">
+            <input type="text" id="time" name="name" value="5min"><br><br>
+            <input type="button" value="Submit" onclick="loadPostMsg(time)">
         </form>
         
         <div id="postrespmsg"></div>
         
         <script>
             function loadPostMsg(name){
-                let url = "/intraday?name=" + name.value;
+                let url = "/getTime?time=" + name.value;
 
                 fetch (url, {method: 'GET'})
                     .then(x => x.text())
                     .then(y => document.getElementById("postrespmsg").innerHTML = y);
+            }
+        </script>
+
+        <button onclick= loadQuery()> Presione para mirar el query</button>
+        <div id="postrespmsg2"></div>
+        
+        <script>
+            function loadQuery(){
+                let url = "/getQuery?symbol=" + symbol.value+ "&time="+time.value;
+
+                fetch (url, {method: 'GET'})
+                    .then(x => x.text())
+                    .then(y => document.getElementById("postrespmsg2").innerHTML = y);
             }
         </script>
     </body>
